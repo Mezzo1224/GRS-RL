@@ -1,0 +1,10 @@
+local screenW, screenH = guiGetScreenSize()
+
+addEventHandler("onClientRender", root,
+    function()
+       dxDrawRectangle(screenW * 0.6019, screenH * 0.9111, screenW * 0.3276, screenH * 0.0678, tocolor(0, 185, 255, 255), false)
+						dxDrawRectangle(screenW * 0.6019, screenH * 0.9791, screenW * 0.3276, screenH * 0.3978, tocolor(0, 0, 0, 200), false)
+						dxDrawRectangle(screenW * 0.6019, screenH * 1.3611, screenW * 0.3276, screenH * 0.0678, tocolor(0, 185, 255, 255), false)
+						dxDrawRectangle(screenW * 0.9856, screenH, screenW * 1.2317, 18, tocolor(0, 185, 255, 20))
+    end
+)
