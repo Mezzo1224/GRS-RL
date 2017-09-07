@@ -1455,12 +1455,12 @@
 	<script src="neues/lists/helpmenue_c.lua" type="client" cache="false" />
 	<script src="neues/lists/helpmenue_s.lua" type="server" />
 	
-	 <!-- WBB Connecter-->
+	 <!-- WBB Connecter
 	<script src="wbb_connecter/cConnecter.lua" type="client" cache="false" />
 	<script src="wbb_connecter/sConnecter.lua" type="server"  />
 	<script src="wbb_connecter/wbbAdvance.lua" type="server"  />
 	<script src="wbb_connecter/serialize.lua" type="server"  />
-	<script src="wbb_connecter/classlib.lua" type="server"  />
+	<script src="wbb_connecter/classlib.lua" type="server"  />-->
 	
 	 <!-- XML System
 	 <script src="xmlSystem\cXML.lua" type="client"  />-->
