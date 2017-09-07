@@ -76,13 +76,13 @@ function _CreateLoginWindow()
     login = DGS:dgsDxCreateWindow(0.44, 0.41, 0.11, 0.18,"Login",true, nil,nil,nil,nil,nil,nil,nil, true)
     DGS:dgsDxWindowSetSizable(login,false)
     DGS:dgsDxWindowSetMovable(login,false)
-
+	pwSafeYes = DGS:dgsDxCreateRadioButton(0.05, 0.59, 0.60, 0.08, "Ja",true, login)
+    pwSafeNo = DGS:dgsDxCreateRadioButton(0.67, 0.59, 0.25, 0.08, "Nein",true, login)
     DGS:dgsDxCreateLabel(0.04, 0.11, 0.30, 0.12,"Passwort:",true,login)
 
     pw = DGS:dgsDxCreateEdit( 0.04, 0.25, 0.91, 0.14, "", true, login )
     DGS:dgsDxCreateLabel(0.05, 0.44, 0.65, 0.12, "Passwort speichern ?",true,login)
-    pwSafeYes = DGS:dgsDxCreateRadioButton(0.05, 0.59, 0.60, 0.08, "Ja",true, login)
-    pwSafeNo = DGS:dgsDxCreateRadioButton(0.67, 0.59, 0.25, 0.08, "Nein",true, login)
+    
     DGS:dgsDxRadioButtonSetSelected(pwSafeNo, true)
     DGS:dgsDxGUISetProperty(pw,"masked",true)
     DGS:dgsSetParent(pw, login)
