@@ -1,7 +1,7 @@
 local gMysqlHost = "localhost"
 local gMysqlUser = "root"
 local gMysqlPass = ""
-local gMysqlDatabase = "video"
+local gMysqlDatabase = "test"
 
 handler = nil
 playerUID = {}
@@ -12,10 +12,13 @@ achievementDescription = {}
 achievementGainXP = {}
 achievementGainMoney = {}
 achievementPic = {}
+achievementSocialState = {}
+
 
 socialStateID = {}
 socialStateName = {}
 socialStateDescription = {}
+socialStateName[0] = "N.a."
 
 function getMilliSecond ( number )
 	if tonumber(number) then
@@ -65,31 +68,6 @@ end
 
 
 
-
-
-function loadAchievements ( )
-	local result = dbPoll ( dbQuery ( handler, "SELECT ??,??,??,??,??,?? FROM ??", "ID", "Name", "Description", "image", "GainXP", "GainMoney", "achievementlist" ), -1 )
-	for i=1, #result do
-		local id = tonumber ( result[i]["ID"] )
-		local name = result[i]["Name"]
-		local desc = result[i]["Description"]
-		local pic = tostring ( result[i]["image"] )
-		local xp = tonumber ( result[i]["GainXP"] )
-		local money = tonumber ( result[i]["GainMoney"] )
-		achievementID[id] = id
-		achievementName[id] = name
-		achievementDescription[id] = desc
-		achievementGainXP[id] = xp
-		achievementGainMoney[id] = money
-		if pic then
-			achievementPic[id] = pic
-		else
-			achievementPic[id] = "error.png"
-		end
-		outputDebugString("["..id.."] Achievement `"..name.."` loadet.")
-	end
-end
-
 function loadSocialStats ( )
 	local result = dbPoll ( dbQuery ( handler, "SELECT ??,??,?? FROM ??", "ID", "Name", "Description", "socialstatelist" ), -1 )
 	for i=1, #result do
@@ -99,8 +77,38 @@ function loadSocialStats ( )
 		socialStateID[id] = id
 		socialStateName[id] = name
 		socialStateDescription[id] = desc
+		outputDebugString("["..id.."] State `"..name.." ("..id..")` loadet.")
 	end
 end
+
+function loadAchievements ( )
+	local result = dbPoll ( dbQuery ( handler, "SELECT ??,??,??,??,??,??, ?? FROM ??", "ID", "Name", "Description", "image", "GainXP", "GainMoney", "socialStateID", "achievementlist" ), -1 )
+	for i=1, #result do
+		local id = tonumber ( result[i]["ID"] )
+		local name = result[i]["Name"]
+		local desc = result[i]["Description"]
+		local pic = tostring ( result[i]["image"] )
+		local xp = tonumber ( result[i]["GainXP"] )
+		local money = tonumber ( result[i]["GainMoney"] )
+		local socialID = tonumber ( result[i]["socialStateID"] )
+		
+		achievementID[id] = id
+		achievementName[id] = name
+		achievementDescription[id] = desc
+		achievementGainXP[id] = xp
+		achievementGainMoney[id] = money
+		achievementSocialState[id] = socialID
+
+		if pic then
+			achievementPic[id] = pic
+		else
+			achievementPic[id] = "error.png"
+		end
+		outputDebugString("["..id.."] Achievement `"..name.." ("..socialStateName[socialID]..")` loadet.")
+	end
+end
+
+
 
 if handler then
 

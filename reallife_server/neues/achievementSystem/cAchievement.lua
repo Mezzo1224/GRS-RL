@@ -9,9 +9,9 @@ local font = dxCreateFont(":reallife_server/fonts/DSDIGI.ttf", 10)
 local achievment = {}
 achievmentSound = false
 
-function showAchievment (id, name, desc, xp, money, pic)
+function showAchievment (id, name, desc, xp, money, pic, socialName)
 
-    achievment[#achievment+1] = { name, desc, xp, money, pic, getTickCount(), id }
+    achievment[#achievment+1] = { name, desc, xp, money, pic, getTickCount(), id, socialName }
     print(#achievment)
     print(name)
 
@@ -30,7 +30,7 @@ function drawAchievment ()
                 dxDrawText(achievment[i][1], 909*sx, 238*sy, 1075*sx, 269*sy, tocolor(255, 255, 255, 255), 1.00, font, "left", "top", false, false, false, false, false)
                 dxDrawText("+ "..achievment[i][4].."$", 944*sx, 273*sy, 1110*sx, 304*sy, tocolor(255, 255, 255, 255), 1.40, font, "left", "top", false, false, false, false, false)
                 dxDrawText("+ "..achievment[i][3], 878*sx, 314*sy, 1044*sx, 345*sy, tocolor(255, 255, 255, 255), 1.50, font, "left", "top", false, false, false, false, false)
-                dxDrawText("N.a", 950*sx, 340*sy, 1116*sx, 371*sy, tocolor(255, 255, 255, 255), 1.20, font, "left", "top", false, false, false, false, false)
+                dxDrawText(achievment[i][8], 950*sx, 340*sy, 1116*sx, 371*sy, tocolor(255, 255, 255, 255), 1.20, font, "left", "top", false, false, false, false, false)
 				if achievmentSound == false then
 					if tonumber(achievment[i][7]) == 13 then
 						playSound("neues/achievementSystem/weed.mp3")
