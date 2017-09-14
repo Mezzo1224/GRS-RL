@@ -1,19 +1,10 @@
 
---[[
-function displayLoadedRes ( res )
-	outputChatBox ( "Die Ressource " .. getResourceName(res) .. " wurde geladen.", getRootElement(), 255, 255, 255 )
-end
-addEventHandler ( "onResourceStart", getRootElement(), displayLoadedRes )
---]]
-
------  wdaw dawda w
 
 
 db = handler
 
 
 function updateTicketsForClientFunc()
-	--if isPSupporter(source) then
 	if vioGetElementData(source,"adminlvl") >= 1 then
 		local qh = dbQuery( db, "SELECT * FROM tickets ORDER BY id DESC")
 		local result, num_affected_rows, errmsg = dbPoll ( qh, -1 )
@@ -77,12 +68,10 @@ function insertAntwortDataFunc(ticket_id, text)
 	local lastlogin = registerdatum
 	local qh2 = dbQuery( db, "INSERT INTO tickets_antworten (`ticket_id`, `antwort_id`, `from`, `text`, `date`) VALUES (?,?,?,?,?);", ticket_id, num_affected_rows + 1, getPlayerName(source), text, lastlogin)
 	dbFree( qh2 )
-	-- supppoints
 	if vioGetElementData(source,"adminlvl") >= 1 then 
 		local qh4 = dbQuery( db, "UPDATE  tickets SET  state =  'answered' WHERE  id = ?;", ticket_id)
 		dbFree( qh4 )
 		vioSetElementData(source,"supppoints",vioGetElementData(source,"supppoints") + 1)
-		--vioSetElementData ( source, "supppoints", vioGetElementData ( source, "supppoints" ) + 1 )
 	else
 		local qh4 = dbQuery( db, "UPDATE  tickets SET  state =  'open' WHERE  id = ?;", ticket_id)
 		dbFree( qh4 )
@@ -175,9 +164,4 @@ function getCurAntwortFunc(ticket_id, antwort_id)
 end
 addEvent ( "getCurAntwort", true )
 addEventHandler ( "getCurAntwort", getRootElement(), getCurAntwortFunc )
---[[
-	Antworten erstellen
-	User Permissions
-	Screensize anpassen
-	Überprüfen Serverseitig & Clientseitig ob User Admin ist ( SCHLIESSEN..)
-]]--
+
