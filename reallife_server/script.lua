@@ -175,9 +175,9 @@ function randomspruch ()
         spruch = "SPARTA!"
     end
     if tonumber(DoubleXP) >= 2 then
-        setGameType ( ""..servername.." Reallife | Ver. "..curVersion.." |"..DoubleXP.."x XP" )
+        setGameType ( ""..servername.." Reallife | Vers. "..curVersion.." |"..DoubleXP.."x XP" )
     else
-        setGameType ( ""..servername.." Reallife | Ver. "..curVersion.." | "..spruch )
+        setGameType ( ""..servername.." Reallife | Vers. "..curVersion.." | "..spruch )
     end
 end
 

