@@ -79,7 +79,7 @@ function showGardenCenterMenue_func ()
 				closeGardenClubWindow ()
 			elseif value == "Schaufel" then
 				triggerServerEvent ( "BuyShovelServer", lp )
-			elseif value == "Hansamen" then
+			elseif value == "Hanfsamen" then
 				triggerServerEvent ( "BuyFlowersServer", lp )
 			else
 				local id = 0
@@ -103,7 +103,7 @@ function showGardenCenterMenue_func ()
 	guiGridListSetItemText ( gGrid["gardenclub"], row, gColumn["gardenclubObject"], "Schaufel", false, false )
 	guiGridListSetItemText ( gGrid["gardenclub"], row, gColumn["gardenclubPrice"], "15 $", false, false )
 	local row = guiGridListAddRow ( gGrid["gardenclub"] )
-	guiGridListSetItemText ( gGrid["gardenclub"], row, gColumn["gardenclubObject"], "Hansamen", false, false )
+	guiGridListSetItemText ( gGrid["gardenclub"], row, gColumn["gardenclubObject"], "Hanfsamen", false, false )
 	guiGridListSetItemText ( gGrid["gardenclub"], row, gColumn["gardenclubPrice"], "500 $", false, false )
 	
 	for key, index in pairs ( placeAblesToBeSaved ) do

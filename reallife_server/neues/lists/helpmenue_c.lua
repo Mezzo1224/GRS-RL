@@ -36,7 +36,8 @@ SwegGui = {
         lfrac = guiGridListAddColumn(SwegGui.gridlist[2], "Fraktion", 0.3)
         llogin = guiGridListAddColumn(SwegGui.gridlist[2], "Letzter Login", 0.3)
       	SwegGui.memo[2] = guiCreateMemo(0.54, 0.02, 0.45, 0.96, "-- Fraktionen und Leader --\n\nJede Fraktion (Für manche Faction oder \"Beruf\" hat sein eigenes Aufgabengebiet und vor-/nachteile. Es gibt momentan die neutralen Frakionen, die guten Fraktionen und die bösen Fraktionen. Die Aufgabe der bösen Frakionen ist es, Akionen zu machen, Spieler auszurauben und Gangwar zu betreiben. Allerdings werden diese Machenschaften meist durch die Staatsfraktionen aufgehalten", true, SwegGui.tab[2])    
-	if getElementData(getLocalPlayer(),"adminlvlShow") >= 1 then
+		guiMemoSetReadOnly(SwegGui.memo[2], true)
+	 if getElementData(getLocalPlayer(),"adminlvlShow") >= 1 then
 			SwegGui.tab[3] = guiCreateTab("Bans", SwegGui.tabpanel[1])
 				ban_list = guiCreateGridList(0.01, 0.01, 0.98, 0.71, true, SwegGui.tab[3])
 				bid     =	guiGridListAddColumn(ban_list, "ID", 0.1)

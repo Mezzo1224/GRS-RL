@@ -43,7 +43,8 @@ end
 addEvent ( "guiShowLoginAgain", true )
 addEventHandler ( "guiShowLoginAgain", getRootElement(), guiShowLoginAgain_func )
 
-function SubmitEinloggenBtn()
+function SubmitEinloggenBtn(cmd, state)
+	if state == "down" then
 		source = getPlayerName(lp)
         local passwort = DGS:dgsDxGUIGetText( pw )
         triggerServerEvent ( "einloggen", lp, lp, hash ( "sha512", passwort ))
@@ -58,6 +59,7 @@ function SubmitEinloggenBtn()
             xmlNodeSetValue ( psafe, nil  )
             xmlSaveFile ( file )
 		end
+	end
 end
 
 
