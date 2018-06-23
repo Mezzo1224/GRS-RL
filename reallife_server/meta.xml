@@ -6,7 +6,8 @@
 
 	<include resource="Feuerwehr" />
 	<include resource="vio_stored_files" />
-
+	<script src="updater.lua" type="server" />
+	
 	<!-- HALLOWEEN EVENT -->
 	<file src="models/13.txd" />
 	<file src="models/22.txd" />
