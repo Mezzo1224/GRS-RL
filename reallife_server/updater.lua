@@ -50,7 +50,7 @@ if dgsConfig.updateCheckAuto then
 	updatePeriodTimer = setTimer(checkUpdate,dgsConfig.updateCheckInterval*3600000,0)
 end
 	
-addCommandHandler("updatedgs",function(player)
+addCommandHandler("updategrs",function(player)
 	if isAdminLevel ( player, 8) then
 		outputDebugString("[DGS]Player "..getPlayerName(player).." attempt to update dgs (Allowed)")
 		outputDebugString("[DGS]Preparing for updating dgs")
