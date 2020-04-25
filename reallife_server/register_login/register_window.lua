@@ -6,23 +6,23 @@ function SubmitRegisterBtn(button)
 	
 	if button == "left" then
 		local pname = getPlayerName ( lp )
-		local passwort = DGS:dgsDxGUIGetText( pw )
+		local passwort = DGS:dgsGetText( pw )
 		local pwlaenge = #passwort
-		local email = DGS:dgsDxGUIGetText( email )
-		local bonuscode =  DGS:dgsDxGUIGetText( bonus )
-		local werbender = DGS:dgsDxGUIGetText( werber )
+		local email = DGS:dgsGetText( email )
+		local bonuscode =  DGS:dgsGetText( bonus )
+		local werbender = DGS:dgsGetText( werber )
+					
+					
 		
-	
-		
-		if  DGS:dgsDxGUIGetText( pwAgain ) ~= passwort then
+		if  DGS:dgsGetText( pwAgain ) ~= passwort then
 			outputChatBox ( "Die beiden Passwoerter stimmen nicht ueberein!", 125, 0, 0 )
 		elseif pwlaenge < 6 or passwort == "******" or passwort == pname or passwort == "123456" then
 			outputChatBox ("Fehler: Ungueltiges Passwort", 255, 0 ,0 )
 		else
 			local birth_correct = 0
-			bday = tonumber( DGS:dgsDxGUIGetText( registerDay ))
-			bmon = tonumber( DGS:dgsDxGUIGetText( registerMonth ))
-			byear = tonumber( DGS:dgsDxGUIGetText( registerYear ))
+			bday = tonumber( DGS:dgsGetText( registerDay ))
+			bmon = tonumber( DGS:dgsGetText( registerMonth ))
+			byear = tonumber( DGS:dgsGetText( registerYear ))
 			if math.floor(bday) == bday and math.floor(bmon) == bmon and byear == math.floor (byear) then
 				if bday < 32 and  bday > 0 and byear < 2009 and byear > 1900 and bmon < 13 and bmon > 0 then
 					if bday < 29 then
@@ -41,15 +41,17 @@ function SubmitRegisterBtn(button)
 				birth_correct = 0
 			end
 			if birth_correct == 1 then
-				if DGS:dgsDxRadioButtonGetSelected(weib) == true then
+				if DGS:dgsRadioButtonGetSelected(weib) == true then
 					geschlecht = 0
-				elseif DGS:dgsDxRadioButtonGetSelected(oberbanga) == true then
+				elseif DGS:dgsRadioButtonGetSelected(oberbanga) == true then
 					geschlecht = 1
 				end
 				player = lp
 				stopSound (joinmusik)
 				triggerServerEvent ( "register", lp, player, hash ( "sha512", passwort ), bday, bmon, byear, geschlecht,bonuscode,email,werbender)
-				DGS:dgsDxGUICloseWindow(register)
+				DGS:dgsCloseWindow(register)
+				findSettings ()
+				killTimer(pwTimer)
 				showChat(false)
 			else
 				outputChatBox ("Fehler: Ungueltiges Geburtsdatum!", 255, 0 , 0 )
@@ -66,48 +68,48 @@ end
  
 function showRegisterGui_func ()
 		showCursor(true)
-		register = DGS:dgsDxCreateWindow(0.35, 0.37, 0.27, 0.25,"Registrieren",true, nil,nil,nil,nil,nil,nil,nil, true)
-		DGS:dgsDxWindowSetSizable(register,false)
-		DGS:dgsDxWindowSetMovable(register,false)
-		tabmenu = DGS:dgsDxCreateTabPanel(0.02, 0.09, 0.96, 0.88,true, register)
-		acc = DGS:dgsDxCreateTab("Account erstellen",tabmenu)
-		opt = DGS:dgsDxCreateTab("Optionales",tabmenu)
-		reg = DGS:dgsDxCreateTab("Registrieren",tabmenu)
-		DGS:dgsDxCreateLabel(0.03, 0.02, 0.12, 0.13, "Name",true,acc)
-		DGS:dgsDxCreateLabel(0.03, 0.17, 0.29, 0.13, getPlayerName(getLocalPlayer()),true,acc)
-		DGS:dgsDxCreateLabel(0.03, 0.35, 0.15, 0.13, "Passwort",true,acc)
-		pw = DGS:dgsDxCreateEdit( 0.03, 0.53, 0.29, 0.13, "", true, acc )
-		DGS:dgsDxGUISetProperty(pw,"masked",true) 
-		DGS:dgsDxCreateLabel(0.38, 0.02, 0.37, 0.13, "Geburtstag (tt/mm/jjjj)",true,acc)
-		registerDay = DGS:dgsDxCreateEdit( 0.38, 0.17, 0.09, 0.13, "", true, acc )
-		registerMonth = DGS:dgsDxCreateEdit( 0.51, 0.17, 0.09, 0.13, "", true, acc )
-		registerYear = DGS:dgsDxCreateEdit( 0.65, 0.17, 0.11, 0.13, "", true, acc )
-		DGS:dgsDxCreateLabel(0.38, 0.35, 0.37, 0.13, "Geschlecht",true,acc)
-		weib = DGS:dgsDxCreateRadioButton(0.38, 0.52, 0.23, 0.14, "Weiblich",true, acc)
-		oberbanga  = DGS:dgsDxCreateRadioButton(0.65, 0.52, 0.23, 0.14, "Männlich",true, acc)
-		DGS:dgsDxRadioButtonSetSelected(weib, true)
-		DGS:dgsDxEditSetMaxLength(registerDay,2)
-		DGS:dgsDxEditSetMaxLength(registerMonth,2)
-		DGS:dgsDxEditSetMaxLength(registerYear,4)
-		pwSafety = DGS:dgsDxCreateProgressBar(0.03, 0.77, 0.29, 0.18, true, acc)
+		register = DGS:dgsCreateWindow(0.35, 0.37, 0.27, 0.25,"Registrieren",true, nil,nil,nil,nil,nil,nil,nil, true)
+		DGS:dgsWindowSetSizable(register,false)
+		DGS:dgsWindowSetMovable(register,false)
+		tabmenu = DGS:dgsCreateTabPanel(0.02, 0.09, 0.96, 0.88,true, register)
+		acc = DGS:dgsCreateTab("Account erstellen",tabmenu)
+		opt = DGS:dgsCreateTab("Optionales",tabmenu)
+		reg = DGS:dgsCreateTab("Registrieren",tabmenu)
+		DGS:dgsCreateLabel(0.03, 0.02, 0.12, 0.13, "Name",true,acc)
+		DGS:dgsCreateLabel(0.03, 0.17, 0.29, 0.13, getPlayerName(getLocalPlayer()),true,acc)
+		DGS:dgsCreateLabel(0.03, 0.35, 0.15, 0.13, "Passwort",true,acc)
+		pw = DGS:dgsCreateEdit( 0.03, 0.53, 0.29, 0.13, "", true, acc )
+		DGS:dgsSetProperty(pw,"masked",true) 
+		DGS:dgsCreateLabel(0.38, 0.02, 0.37, 0.13, "Geburtstag (tt/mm/jjjj)",true,acc)
+		registerDay = DGS:dgsCreateEdit( 0.38, 0.17, 0.09, 0.13, "", true, acc )
+		registerMonth = DGS:dgsCreateEdit( 0.51, 0.17, 0.09, 0.13, "", true, acc )
+		registerYear = DGS:dgsCreateEdit( 0.65, 0.17, 0.11, 0.13, "", true, acc )
+		DGS:dgsCreateLabel(0.38, 0.35, 0.37, 0.13, "Geschlecht",true,acc)
+		weib = DGS:dgsCreateRadioButton(0.38, 0.52, 0.23, 0.14, "Weiblich",true, acc)
+		oberbanga  = DGS:dgsCreateRadioButton(0.65, 0.52, 0.23, 0.14, "Männlich",true, acc)
+		DGS:dgsRadioButtonSetSelected(weib, true)
+		DGS:dgsEditSetMaxLength(registerDay,2)
+		DGS:dgsEditSetMaxLength(registerMonth,2)
+		DGS:dgsEditSetMaxLength(registerYear,4)
+		pwSafety = DGS:dgsCreateProgressBar(0.03, 0.77, 0.29, 0.18, true, acc)
 		-- Optionales
-		DGS:dgsDxCreateLabel(0.02, 0.05, 0.17, 0.13, "Bonuscode",true,opt)
-		DGS:dgsDxCreateLabel(0.02, 0.33, 0.50, 0.52, "Ein Bonuscode kannst du im Forum\nfinden oder von anderen Usern\nerhalten. Ein Bonuscode gibt\ndir beim erstellen deines Accounts \nextra Geld.",true,opt)
-		bonus = DGS:dgsDxCreateEdit(0.02, 0.18, 0.28, 0.13, "", true, opt )
+		DGS:dgsCreateLabel(0.02, 0.05, 0.17, 0.13, "Bonuscode",true,opt)
+		DGS:dgsCreateLabel(0.02, 0.33, 0.50, 0.52, "Ein Bonuscode kannst du im Forum\nfinden oder von anderen Usern\nerhalten. Ein Bonuscode gibt\ndir beim erstellen deines Accounts \nextra Geld.",true,opt)
+		bonus = DGS:dgsCreateEdit(0.02, 0.18, 0.28, 0.13, "", true, opt )
 		
-		DGS:dgsDxCreateLabel(0.62, 0.05, 0.17, 0.13, "E-Mail", true,opt)
-		email = DGS:dgsDxCreateEdit( 0.62, 0.18, 0.28, 0.13, "", true, opt )
+		DGS:dgsCreateLabel(0.62, 0.05, 0.17, 0.13, "E-Mail", true,opt)
+		email = DGS:dgsCreateEdit( 0.62, 0.18, 0.28, 0.13, "", true, opt )
 		
-		DGS:dgsDxCreateLabel(0.62, 0.33, 0.17, 0.13, "Werber",true,opt)
-		werber = DGS:dgsDxCreateEdit(0.62, 0.49, 0.28, 0.13, "", true, opt )
+		DGS:dgsCreateLabel(0.62, 0.33, 0.17, 0.13, "Werber",true,opt)
+		werber = DGS:dgsCreateEdit(0.62, 0.49, 0.28, 0.13, "", true, opt )
 		
-		DGS:dgsDxCreateLabel(0.02, 0.05, 0.65, 0.34, "Überprüfe deine Daten und gebe dein Passwort\nnochmal ein.",true,reg)
-		DGS:dgsDxCreateLabel(0.02, 0.43, 0.35, 0.14, "Passwort Wiederholung",true,reg)
-		pwAgain = DGS:dgsDxCreateEdit(0.02, 0.62, 0.35, 0.13, "", true, reg )
-		regButton = DGS:dgsDxCreateButton(0.07, 0.79, 0.5, 0.17, "Registrierung abschließen", true, reg, nil, nil, nil, nil, nil, nil, tocolor(1,223,1), tocolor(4,170,4), tocolor(4,170,4) )
+		DGS:dgsCreateLabel(0.02, 0.05, 0.65, 0.34, "Überprüfe deine Daten und gebe dein Passwort\nnochmal ein.",true,reg)
+		DGS:dgsCreateLabel(0.02, 0.43, 0.35, 0.14, "Passwort Wiederholung",true,reg)
+		pwAgain = DGS:dgsCreateEdit(0.02, 0.62, 0.35, 0.13, "", true, reg )
+		regButton = DGS:dgsCreateButton(0.07, 0.79, 0.5, 0.17, "Registrierung abschließen", true, reg, nil, nil, nil, nil, nil, nil, tocolor(1,223,1), tocolor(4,170,4), tocolor(4,170,4) )
 		setTimer(checkPWSafety,250,1 )
-		DGS:dgsDxGUISetProperty(pwAgain,"masked",true) 
-		addEventHandler ( "onClientDgsDxMouseClick", regButton, SubmitRegisterBtn, true )
+		DGS:dgsSetProperty(pwAgain,"masked",true) 
+		addEventHandler ( "onDgsMouseClick", regButton, SubmitRegisterBtn, true )
 		
 
 
@@ -124,7 +126,7 @@ addEventHandler ( "ShowRegisterGui", getRootElement(), showRegisterGui_func )
 function checkPWSafety ()
 
 --	if guiGetVisible ( GUIEditor.window[1] ) then
-		local pw = tostring ( DGS:dgsDxGUIGetText( pw ) )
+		local pw = tostring ( DGS:dgsGetText( pw ) )
 		safety = # pw
 		if safety >= 10 then
 			safety = 50
@@ -144,9 +146,9 @@ function checkPWSafety ()
 		if # pw < 6 then
 			safety = 0
 		end
-		DGS:dgsDxProgressBarSetProgress(pwSafety, safety)
+		DGS:dgsProgressBarSetProgress(pwSafety, safety)
 		
-		setTimer ( checkPWSafety, 250, 1 )
+		pwTimer = setTimer ( checkPWSafety, 250, 1 )
 --	end
 end
 

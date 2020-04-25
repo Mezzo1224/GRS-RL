@@ -1,5 +1,6 @@
-﻿-- Das Script ist vom DGS macher, ist nur umprogrammiert.
--- Erlaubnis habe ich.
+﻿-- Der Code stammt von thisdp, dem Macher von DGS - Ich habe seine Erlaubnis diesen zu benutzen.
+--Check whether you enable/disable dgs update system..
+--If you don't trust dgs.. Please Disable It In "config.txt"
 
 local check
 if fileExists("version.cfg") then
@@ -10,51 +11,64 @@ end
 local allstr = fileRead(check,fileGetSize(check))
 setElementData(resourceRoot,"Version",allstr)
 fileClose(check)
+
+
+
+local _fetchRemote = fetchRemote
+function fetchRemote(...)
+	if hasObjectPermissionTo(getThisResource(),"function.fetchRemote",true) then
+		return _fetchRemote(...)
+	else
+		outputDebugString("[GRS-Updater] GRS hat keine ACL Rechte.'",2)
+	end
+	return false
+end
+
 Version = tonumber(allstr) or 0
 RemoteVersion = 0
 ManualUpdate = false
 updateTimer = false
 updatePeriodTimer = false
 function checkUpdate()
-	outputDebugString("[GRS]Connecting to github...")
+	outputDebugString("[GRS-Updater]Connecting to github...")
 	fetchRemote("https://raw.githubusercontent.com/Mezzo1224/GRS-RL/master/reallife_server/version.cfg",function(data,err)
 		if err == 0 then
 			RemoteVersion = tonumber(data)
 			if not ManualUpdate then
 				if RemoteVersion > Version then
-					outputDebugString("[GRS]Remote Version Got [Remote:"..data.." Current:"..allstr.."]. See the update log: http://angel.mtaip.cn:233/dgsUpdate")
-					outputDebugString("[GRS]Update? Command: updatedgs")
+					outputDebugString("[GRS-Updater] Versions-Info: [Remote:"..data.." Current:"..allstr.."].")
+					outputDebugString("[GRS-Updater] Updaten? /updategrs ")
+					outputDebugString("[GRS-Updater] Achtung: Eigene Änderungen werden ggf. gelöscht! ")
 					if isTimer(updateTimer) then killTimer(updateTimer) end
 					updateTimer = setTimer(function()
 						if RemoteVersion > Version then
-							outputDebugString("[GRS]Remote Version Got [Remote:"..RemoteVersion.." Current:"..allstr.."]. See the update log: http://angel.mtaip.cn:233/dgsUpdate")
-							outputDebugString("[GRS]Update? Command: updatedgs")
+							outputDebugString("[GRS-Updater] Versions-Info: [Remote:"..RemoteVersion.." Current:"..allstr.."].")
+							outputDebugString("[GRS-Updater] Updaten? /updategrs ")
+							outputDebugString("[GRS-Updater] Achtung: Eigene Änderungen werden ggf. gelöscht! ")
 						else
 							killTimer(updateTimer)
 						end
 					end,dgsConfig.updateCheckNoticeInterval*60000,0)
 				else
-					outputDebugString("[GRS]Current Version("..allstr..") is the latest!")
+					outputDebugString("[GRS-Updater] Version ("..allstr..") ist die aktuellste")
 				end
 			else
 				startUpdate()
 			end
 		else
-			outputDebugString("[GRS]Can't Get Remote Version ("..err..")")
+			outputDebugString("[GRS-Updater] Update nicht möglich ("..err..")")
 		end
 	end)
 end
 
-if dgsConfig.updateCheckAuto then
-	checkUpdate()
-	updatePeriodTimer = setTimer(checkUpdate,dgsConfig.updateCheckInterval*3600000,0)
-end
+
 	
 addCommandHandler("updategrs",function(player)
-	if isAdminLevel ( player, 8) then
-		outputDebugString("[DGS]Player "..getPlayerName(player).." attempt to update dgs (Allowed)")
-		outputDebugString("[DGS]Preparing for updating dgs")
-		outputChatBox("[DGS]Preparing for updating dgs",root,0,255,0)
+	local account = getPlayerAccount(player)
+	local accName = getAccountName(account)
+	if isAdminLevel(player, 8) then
+		outputDebugString("[GRS-Updater] "..getPlayerName(player).." Update die GRS Version")
+		outputChatBox("[GRS-Updater] GRS wird geupdated...",root,0,255,0)
 		if RemoteVersion > Version then
 			startUpdate()
 		else
@@ -62,28 +76,27 @@ addCommandHandler("updategrs",function(player)
 			checkUpdate()
 		end
 	else
-		outputChatBox("[DGS]!Access Denined!",player,255,0,0)
-		outputDebugString("[DGS]!Player "..getPlayerName(player).." attempt to update dgs (Denied)!",2)
+		triggerClientEvent ( player, "infobox_start", getRootElement(), "\nDu bist\nnicht befugt!", 7500, 125, 0, 0 )	
 	end
 end)
 
 function startUpdate()
 	ManualUpdate = false
 	setTimer(function()
-		outputDebugString("[DGS]Requesting Update Data (From github)...")
+		outputDebugString("[GRS-Updater] Daten werden abgefragt...")
 		fetchRemote("https://raw.githubusercontent.com/Mezzo1224/GRS-RL/master/reallife_server/meta.xml",function(data,err)
 			if err == 0 then
-				outputDebugString("[DGS]Update Data Acquired")
-				if fileExists("update/meta.xml") then
-					fileDelete("update/meta.xml")
+				outputDebugString("[GRS-Updater]Update Data Acquired")
+				if fileExists("updated/meta.xml") then
+					fileDelete("updated/meta.xml")
 				end
-				local meta = fileCreate("update/meta.xml")
+				local meta = fileCreate("updated/meta.xml")
 				fileWrite(meta,data)
 				fileClose(meta)
-				outputDebugString("[DGS]Requesting Verification Data...")
+				outputDebugString("[GRS-Updater] Daten werden bearbeitet..")
 				getGitHubTree()
 			else
-				outputDebugString("[DGS]!Can't Get Remote Update Data (ERROR:"..err..")",2)
+				outputDebugString("[GRS-Updater] Abfrage nicht möglich (ERROR:"..err..")",2)
 			end
 		end)
 	end,50,1)
@@ -98,41 +111,50 @@ preFetch = 0
 folderGetting = {}
 function getGitHubTree(path,nextPath)
 	nextPath = nextPath or ""
-	fetchRemote(path or "https://api.github.com/repos/Mezzo1224/GRS-RL/contents/reallife_server?ref=master",{},function(data,err)
-		if err.success then
+	fetchRemote(path or "https://api.github.com/repos/Mezzo1224/GRS-RL/git/trees/feb2dc19ee0225f885bc93f7612a93426c390549",function(data,err)
+		if err == 0 then
 			local theTable = fromJSON(data)
 			folderGetting[theTable.sha] = nil
 			for k,v in pairs(theTable.tree) do
 				local thePath = nextPath..(v.path)
-				if v.mode == "040000" then
-					folderGetting[v.sha] = true
-					getGitHubTree(v.url,thePath.."/")
-				else
-					fileHash[thePath] = v.sha
-				end
+					if v.mode == "040000" then
+						folderGetting[v.sha] = true
+						getGitHubTree(v.url,thePath.."/")
+					else
+						fileHash[thePath] = v.sha
+					end
+				
 			end
 			if not next(folderGetting) then
 				checkFiles()
 			end
 		else
-			outputDebugString("[DGS]!Failed To Get Verification Data, Please Try Again Later (API Cool Down 60 mins)!",2)
+			outputDebugString("[GRS-Updater] Du hast zu oft versucht zu updaten, versuch es in 60 Minuten wieder",2)
 		end
 	end)
 end
 
 function checkFiles()
-	local xml = xmlLoadFile("update/meta.xml")
+	local xml = xmlLoadFile("updated/meta.xml")
 	for k,v in pairs(xmlNodeGetChildren(xml)) do
 		if xmlNodeGetName(v) == "script" or xmlNodeGetName(v) == "file" then
 			local path = xmlNodeGetAttribute(v,"src")
+			if not string.find(path,"styleMapper.lua") and path ~= "meta.xml" and path ~= "settings/lua" and path ~= "mysql/mysql_start.lua" then
+				local sha = ""
+				if fileExists(path) then
+					local file = fileOpen(path)
+					local size = fileGetSize(file)
+					local text = fileRead(file,size)
+					fileClose(file)
+					sha = hash("sha1","blob " .. size .. "\0" ..text)
+				end
 				if sha ~= fileHash[path] then
-					outputDebugString("[DGS]Update Required: ("..path..")")
+					outputDebugString("[GRS-Updater] Update: ("..path..")")
 					table.insert(preUpdate,path)
 				end
 			end
 		end
 	end
-	table.insert(preUpdate,"colorScheme.txt")
 	DownloadFiles()
 end
 
@@ -142,36 +164,23 @@ function DownloadFiles()
 		DownloadFinish()
 		return
 	end
-	outputDebugString("[DGS]Requesting ("..UpdateCount.."/"..(#preUpdate or "Unknown").."): "..tostring(preUpdate[UpdateCount]).."")
-	fetchRemote("https://raw.githubusercontent.com/thisdp/dgs/master/"..preUpdate[UpdateCount],function(data,err,path)
+	outputDebugString("[GRS-Updater] Requesting ("..UpdateCount.."/"..(#preUpdate or "Unknown").."): "..tostring(preUpdate[UpdateCount]).."")
+	fetchRemote("https://raw.githubusercontent.com/Mezzo1224/GRS-RL/master/reallife_server/"..preUpdate[UpdateCount],function(data,err,path)
 		if err == 0 then
 			local size = 0
-			if path == "colorScheme.txt" then
-				if not fileExists(path) then
-					local file = fileCreate(path)
-					fileWrite(file,data)
-					local newsize = fileGetSize(file)
-					fileClose(file)
-					outputDebugString("[DGS]File Got ("..UpdateCount.."/"..#preUpdate.."): "..path.." [ "..size.."B -> "..newsize.."B ]")
-				else
-					local newsize,size = updateColorScheme(path,data)
-					outputDebugString("[DGS]Color Scheme Updated ("..UpdateCount.."/"..#preUpdate.."): "..path.." [ "..size.."B -> "..newsize.."B ]")
-				end
-			else
-				if fileExists(path) then
-					local file = fileOpen(path)
-					size = fileGetSize(file)
-					fileClose(file)
-					fileDelete(path)
-				end
-				local file = fileCreate(path)
-				fileWrite(file,data)
-				local newsize = fileGetSize(file)
+			if fileExists(path) then
+				local file = fileOpen(path)
+				size = fileGetSize(file)
 				fileClose(file)
-				outputDebugString("[DGS]File Got ("..UpdateCount.."/"..#preUpdate.."): "..path.." [ "..size.."B -> "..newsize.."B ]")
+				fileDelete(path)
 			end
+			local file = fileCreate(path)
+			fileWrite(file,data)
+			local newsize = fileGetSize(file)
+			fileClose(file)
+			outputDebugString("[GRS-Updater] Datei ("..UpdateCount.."/"..#preUpdate.."): "..path.." [ "..size.."B -> "..newsize.."B ]")
 		else
-			outputDebugString("[DGS]!Download Failed: "..path.." ("..err..")!",2)
+			outputDebugString("[GRS-Updater]Download fehlgeschlagen: "..path.." ("..err..")!",2)
 		end
 		if preUpdate[UpdateCount+1] then
 			DownloadFiles()
@@ -181,69 +190,22 @@ function DownloadFiles()
 	end,"",false,preUpdate[UpdateCount])
 end
 
-function updateColorScheme(path,data)
-	schemeColor = {}
-	local file = fileOpen("colorSchemeIndex.txt")
-	local str = fileRead(file,fileGetSize(file))
-	local size = fileGetSize(file)
-	fileClose(file)
-	loadstring(str)()
-	-------------------------------------
-	local file = fileOpen(path)
-	local str = fileRead(file,fileGetSize(file))
-	local size = fileGetSize(file)
-	fileClose(file)
-	if fileExists(path..".bak") then
-		fileDelete(path..".bak")
-	end
-	fileRename(path,path..".bak")
-	loadstring(data)()
-	loadstring(str)()
-	local newData = ""
-	local newData_ = ""
-	for k,v in pairs(schemeColor) do
-		if type(v) == "table" then
-			for a,b in pairs(v) do
-				if type(b) == "table" then
-					local pstr = ""
-					for i = 1,#b do
-						local cr,cg,cb,ca = fromcolor(b[i])
-						pstr = pstr.."tocolor("..cr..","..cg..","..cb..","..ca.."),"
-					end
-					local pstr = pstr:sub(1,#pstr-1)
-					newData = newData.."schemeColor."..k.."."..a.." = {"..pstr.."}".."\n"
-				else
-					local cr,cg,cb,ca = fromcolor(b)
-					newData = newData.."schemeColor."..k.."."..a.." = tocolor("..cr..","..cg..","..cb..","..ca..")\n"
-				end
-			end
-			newData = newData.."\n"
-		else
-			newData_ = newData_.."schemeColor."..k.." = "..tostring(v).."\n"
-		end
-	end
-	local file = fileCreate(path)
-	fileWrite(file,newData..newData_)
-	local newsize = fileGetSize(file)
-	fileClose(file)
-	return newsize,size
-end
-
 function DownloadFinish()
-	outputDebugString("[DGS]Changing Config File")
-	if fileExists("update.cfg") then
-		fileDelete("update.cfg")
+	outputDebugString("[GRS-Updater] Versionsnummer wird geändert")
+	if fileExists("version.cfg") then
+		fileDelete("version.cfg")
 	end
-	local file = fileCreate("update.cfg")
+	local file = fileCreate("version.cfg")
 	fileWrite(file,tostring(RemoteVersion))
 	fileClose(file)
 	if fileExists("meta.xml") then
+		backupStyleMapper()
 		fileDelete("meta.xml")
 	end
-	fileRename("updated/meta.xml","meta.xml")
-	outputDebugString("[DGS]Update Complete (Updated "..#preUpdate.." Files)")
-	outputDebugString("[DGS]Please Restart DGS")
-	outputChatBox("[DGS]Update Complete (Updated "..#preUpdate.." Files)",root,0,255,0)
+	recoverStyleMapper()
+	outputDebugString("[GRS-Updater]Update fertiggestellt(Updated "..#preUpdate.." Files)")
+	outputDebugString("[GRS-Updater] Starte GRS neu")
+	outputChatBox("[GRS-Updater]Update Complete (Updated "..#preUpdate.." Files)",root,0,255,0)
 	preUpdate = {}
 	preUpdateCount = 0
 	UpdateCount = 0
@@ -251,40 +213,34 @@ function DownloadFinish()
 	preFetch = 0
 end
 
-addCommandHandler("dgsver",function(pla,cmd)
+addCommandHandler("grsver",function(pla,cmd)
 	local vsdd
-	if fileExists("update.cfg") then
-		local file = fileOpen("update.cfg")
+	if fileExists("version.cfg") then
+		local file = fileOpen("version.cfg")
 		local vscd = fileRead(file,fileGetSize(file))
 		fileClose(file)
 		vsdd = tonumber(vscd)
 		if vsdd then
-			outputDebugString("[DGS]Version: "..vsdd,3)
+			outputDebugString("[GRS-Updater]Version: "..vsdd,3)
 		else
-			outputDebugString("[DGS]Version State is damaged! Please use /updatedgs to update",1)
+			outputDebugString("[GRS-Updater][GRS-Updater] Script ist beschädigt, gebe /updategrs ein.",1)
 		end
 	else
-			outputDebugString("[DGS]Version State is damaged! Please use /updatedgs to update",1)
+		outputDebugString("[GRS-Updater][GRS-Updater] Script ist beschädigt, gebe /updategrs ein.",1)
 	end
 	if getPlayerName(pla) ~= "Console" then
 		if vsdd then
-			outputChatBox("[DGS]Version: "..vsdd,pla,0,255,0)
+			outputChatBox("[GRS-Updater]Version: "..vsdd,pla,0,255,0)
 		else
-			outputChatBox("[DGS]Version State is damaged! Please use /updatedgs to update",pla,255,0,0)
+			outputChatBox("[GRS-Updater] Script ist beschädigt, gebe /updategrs ein.",pla,255,0,0)
 		end
 	end
 end)
 
-function fromcolor(int)
-	local a,r,g,b
-	b,g,r,a = bitExtract(int,0,8),bitExtract(int,8,8),bitExtract(int,16,8),bitExtract(int,24,8)
-	return r,g,b,a
-end
 
-function tocolor(r,g,b,a)
-	local color = a*256^3+r*256^2+g*256+b
-	if color > 2147483647 then
-		color = color-0xFFFFFFFF-1
-	end
-	return color
+function backupStyleMapper()
+	
+end
+function recoverStyleMapper()
+
 end

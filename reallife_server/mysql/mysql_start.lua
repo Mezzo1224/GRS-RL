@@ -1,7 +1,7 @@
 local gMysqlHost = "localhost"
 local gMysqlUser = "root"
 local gMysqlPass = ""
-local gMysqlDatabase = "video"
+local gMysqlDatabase = "reallife2"
 
 handler = nil
 playerUID = {}

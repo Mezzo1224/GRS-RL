@@ -1,13 +1,3 @@
---[[
-											    (c) 2015 
-											    by Max Foidl / Yoshi
-												and GRS MTA:RL Crew
-                                                Die Ersetzung oder gar 
-												löschung wird juristich bestraft!
-												--]]
-
-
-
 local screenwidth, screenheight = guiGetScreenSize ()
 
 function isWithinNightTime ()
@@ -28,44 +18,23 @@ function showVersionInfo ()
 
 end
 
-function SubmitPasswortLoginEdit(button)
-    if button == "left" then
-        if guiGetText ( Password ) == "******" then
-            guiSetText ( Password, "" )
-        end
-    end
-end
 
-function guiShowLoginAgain_func ()
-    guiSetVisible ( LoginWindow, true )
-    guiSetText ( gEdit["passwort_login"], "" )
-end
-addEvent ( "guiShowLoginAgain", true )
-addEventHandler ( "guiShowLoginAgain", getRootElement(), guiShowLoginAgain_func )
-
-function SubmitEinloggenBtn(cmd, state)
-	if state == "down" then
+function SubmitEinloggenBtn(tate)
 		source = getPlayerName(lp)
-        local passwort = DGS:dgsDxGUIGetText( pw )
-        triggerServerEvent ( "einloggen", lp, lp, hash ( "sha512", passwort ))
-        local file = xmlLoadFile ( ":reallife_server/pw.xml" )
-        if DGS:dgsDxRadioButtonGetSelected(pwSafeYes) == true then
-            local psafe = xmlFindChild ( file, "pw", 0 )
-            xmlNodeSetValue ( psafe, passwort  )
-            xmlSaveFile ( file )
-        end
-		if DGS:dgsDxRadioButtonGetSelected(pwSafeNo) == true then
+		local passwort = DGS:dgsGetText( pw )
+		triggerServerEvent ( "einloggen", lp, lp, hash ( "sha512", passwort ))
+		local file = xmlLoadFile ( ":reallife_server/pw.xml" )
+		if DGS:dgsRadioButtonGetSelected(pwSafeYes) == true then
 			local psafe = xmlFindChild ( file, "pw", 0 )
-            xmlNodeSetValue ( psafe, nil  )
-            xmlSaveFile ( file )
+			xmlNodeSetValue ( psafe, passwort  )
+			xmlSaveFile ( file )
 		end
-	end
-end
-
-
-
-
-
+		if DGS:dgsRadioButtonGetSelected(pwSafeNo) == true then
+			local psafe = xmlFindChild ( file, "pw", 0 )
+			xmlNodeSetValue ( psafe, nil  )
+			xmlSaveFile ( file )
+		end
+    end
 
 
 function _CreateLoginWindow()
@@ -75,27 +44,27 @@ function _CreateLoginWindow()
 
 
 
-    login = DGS:dgsDxCreateWindow(0.44, 0.41, 0.11, 0.18,"Login",true, nil,nil,nil,nil,nil,nil,nil, true)
-    DGS:dgsDxWindowSetSizable(login,false)
-    DGS:dgsDxWindowSetMovable(login,false)
-	pwSafeYes = DGS:dgsDxCreateRadioButton(0.05, 0.59, 0.60, 0.08, "Ja",true, login)
-    pwSafeNo = DGS:dgsDxCreateRadioButton(0.67, 0.59, 0.25, 0.08, "Nein",true, login)
-    DGS:dgsDxCreateLabel(0.04, 0.11, 0.30, 0.12,"Passwort:",true,login)
+    login = DGS:dgsCreateWindow(0.44, 0.41, 0.11, 0.18,"Login",true, nil,nil,nil,nil,nil,nil,nil, true)
+    DGS:dgsWindowSetSizable(login,false)
+    DGS:dgsWindowSetMovable(login,false)
 
-    pw = DGS:dgsDxCreateEdit( 0.04, 0.25, 0.91, 0.14, "", true, login )
-    DGS:dgsDxCreateLabel(0.05, 0.44, 0.65, 0.12, "Passwort speichern ?",true,login)
-    
-    DGS:dgsDxRadioButtonSetSelected(pwSafeNo, true)
-    DGS:dgsDxGUISetProperty(pw,"masked",true)
+    DGS:dgsCreateLabel(0.04, 0.11, 0.30, 0.12,"Passwort:",true,login)
+
+    pw = DGS:dgsCreateEdit( 0.04, 0.25, 0.91, 0.14, "", true, login )
+    DGS:dgsCreateLabel(0.05, 0.44, 0.65, 0.12, "Passwort speichern ?",true,login)
+	
+    --   DGS:dgsRadioButtonSetSelected(pwSafeNo, true)
+    DGS:dgsSetProperty(pw,"masked",true)
     DGS:dgsSetParent(pw, login)
-    loginButton = DGS:dgsDxCreateButton(0.23, 0.78, 0.54, 0.17, "Einloggen", true, login, nil, nil, nil, nil, nil, nil, tocolor(1,223,1), tocolor(4,170,4), tocolor(4,170,4) )
-	addEventHandler ( "onClientDgsDxMouseClick", loginButton, SubmitEinloggenBtn, true )
+    loginButton = DGS:dgsCreateButton(0.23, 0.66, 0.54, 0.17, "Einloggen", true, login, nil, nil, nil, nil, nil, nil, tocolor(1,223,1), tocolor(4,170,4), tocolor(4,170,4) )
+    pwSafeYes = DGS:dgsCreateRadioButton(0.05, 0.59, 0.60, 0.08, "Ja",true, login)
+    pwSafeNo = DGS:dgsCreateRadioButton(0.67, 0.59, 0.25, 0.08, "Nein",true, login)
+    addEventHandler ( "onDgsMouseClickDown", loginButton, SubmitEinloggenBtn, true )
     showCursor(true)
 
-	
-    addEventHandler ( "onClientRender", root, renderLogin )
+
     local pwfile = xmlLoadFile ( ":reallife_server/pw.xml" )
-	
+
     if not pwfile then
         pwfile = xmlCreateFile ( ":reallife_server/pw.xml", "PW" )
         xmlSaveFile ( pwfile )
@@ -108,8 +77,8 @@ function _CreateLoginWindow()
 
         local psafe = xmlFindChild ( pwfile, "pw", 0 )
         success = xmlNodeGetValue ( psafe )
-        DGS:dgsDxGUISetText(pw, success)
-        DGS:dgsDxRadioButtonSetSelected(pwSafeYes, true)
+        DGS:dgsSetText(pw, success)
+        DGS:dgsRadioButtonSetSelected(pwSafeYes, true)
     end
 end
 
@@ -148,30 +117,22 @@ end
 addEvent ( "ShowLoginWindow", true)
 addEventHandler ( "ShowLoginWindow", getRootElement(), GUI_ShowLoginWindow)
 
-function noLogin()
-    stopSound (joinmusik)
-    unbindKey ( "enter", "down", SubmitEinloggenBtn )
-    showCursor(false)
-    addEventHandler ( "onClientRender", root, InfoUnten )
-    addEventHandler ( "onClientRender", root, infoUntenRechts )
-    DGS:dgsDxGUICloseWindow(login)
-    setPedOxygenLevel ( getLocalPlayer(), 1000 )
-    outputConsole ("[OXY MAX]"..getPedOxygenLevel(getLocalPlayer()))
-
-end
-addEvent ( "noLogin", true )
-addEventHandler ( "noLogin", getRootElement(), noLogin)
 
 function GUI_DisableLoginWindow()
+ --   addEventHandler ( "onClientRender", root, InfoUnten )
+--    addEventHandler ( "onClientRender", root, infoUntenRechts )
     stopSound(joinmusik)
-    DGS:dgsDxGUICloseWindow(login)
+    DGS:dgsCloseWindow(login)
     showCursor(false)
-    setTimer ( checkForSocialStateChanges, 10000, -1 )
+    setTimer ( checkForSocialStateChanges, 10000, 0 )
     setTimer ( getPlayerSocialAvailableStates, 1000, 1 )
     if isTimer ( LVCamFlightTimer ) then
         killTimer ( LVCamFlightTimer )
     end
     setElementClicked ( false )
+	setTempToken ()
+	findSettings ()
+	
 end
 addEvent ( "DisableLoginWindow", true )
 addEventHandler ( "DisableLoginWindow", getRootElement(), GUI_DisableLoginWindow)
@@ -191,5 +152,11 @@ function ShowInfoWindow ()
 end
 
 
+function setTempToken ()
 
-
+	resetToken = setTimer ( setTempToken, 60000*60, 0 )
+	local token = generateString ( 6 )
+	triggerServerEvent ( "setTempToken", getLocalPlayer(), token )
+	playerTempToken = token
+	outputChatBox("Ein neuer Token wurde soeben gesetzt. "..token)
+end

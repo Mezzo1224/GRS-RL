@@ -1,5 +1,4 @@
-﻿-- // Update ging
-function getMilliSecond ( number )
+﻿function getMilliSecond ( number )
 	if tonumber(number) then
 		if number > 0 then
 			return number*1000
