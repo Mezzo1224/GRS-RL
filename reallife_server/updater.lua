@@ -137,7 +137,7 @@ end
 function checkFiles()
 	local xml = xmlLoadFile("updated/meta.xml")
 	for k,v in pairs(xmlNodeGetChildren(xml)) do
-		if xmlNodeGetName(v) == "script" or xmlNodeGetName(v) == "file" then
+		if xmlNodeGetName(v) == "script"  then
 			local path = xmlNodeGetAttribute(v,"src")
 			if not string.find(path,"styleMapper.lua") and path ~= "meta.xml" and path ~= "settings/lua" and path ~= "mysql/mysql_start.lua" then
 				local sha = ""

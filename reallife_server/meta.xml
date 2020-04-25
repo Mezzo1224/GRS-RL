@@ -21,7 +21,7 @@
 	<file src="neues/levelsystem/levelup.png" />
 	
 	
-	<!-- MySQL IMMER als erstes starten!!! --->
+	<!-- MySQL IMMER als erstes starten -->
 	
 	<script src="mysql\mysql_start.lua" />
 	<script src="mysql\mysql_functions.lua" />
@@ -609,15 +609,15 @@
 	<map src="maps\else\cashpoints.map" />
 	<map src="maps\else\deko.map" />
 	<map src="maps\else\internetcafe.map" />
-	<!--- <map src="maps\else\Kartarena.map" /> <!---
+	<!--- <map src="maps\else\Kartarena.map" /> -->
 	<map src="maps\else\safetytank.map" />
 	<map src="maps\else\hafen.map" />
 	<map src="maps\else\lkwjob.map" />
-	<!--- <map src="maps\else\xmas.map" /> --->
+	<!--- <map src="maps\else\xmas.map" /> -->
 	<map src="maps\fbi\fbi.map" />
 	<map src="maps\fbi\fbibase.map" />
 	<map src="maps\fishing\fishhabour.map" />
-	<map src="maps\fraktionen\medic\medic.map"/> --->
+	<map src="maps\fraktionen\medic\medic.map"/> 
 	<map src="maps\fraktionen\mechaniker\mechaniker.map"/>
 
 	<map src="maps\fun\racetrack_first.map" />
@@ -634,7 +634,7 @@
 	<map src="maps\triaden\triaden.map" />
 	<map src="maps\triaden\triaden_casino.map" /> 
 
-	<!--- Buchstabe "A" --->
+	<!--- Buchstabe "A" -->
 	<script src="ADuty\Server.lua" type="Server" />
 	<script src="achievments\achievments_server.lua" type="server" />
 	<script src="achievments\bonus_server.lua" />
@@ -676,7 +676,7 @@
 	<script src="anzeigen\prompt_client.lua" type="client"/>
 	<script src="anzeigen\prompt_server.lua" type="server"/>
 	
-	<!--- Buchstabe "B" --->	
+	<!--- Buchstabe "B" -->	
 
 	
 	<script src="biz\biz.lua" />
@@ -695,9 +695,9 @@
 	<script src="bone_attach\attach_func.lua" type="client" />
 	<script src="bone_attach\bone_pos_rot.lua" type="client" />
 	
-	<!--- Buchstabe "C" --->
+	<!--- Buchstabe "C" 
 	<script src="carsys\bikefalloff.lua" type="client"/>
-->
+	-->
 	
 	<script src="carsys\carcommands.lua" />
 	<script src="carsys\outsource_mysql.lua" />
@@ -779,7 +779,7 @@
 	<script src="carsys\gps\nodes.lua" type="client" />		
 	<script src="carsys\gps\settings.lua" type="client" />
 	
-	<!--- Casino --->
+	<!--- Casino -->
 	<script src="casino\casino_client.lua" type="client" />
 	<script src="casino\casino_server.lua" type="server" />
 	
@@ -806,7 +806,7 @@
 	<script src="casino\slotmachine\slotmachine_client.lua" type="client" />
 	<script src="casino\slotmachine\slotmachine_server.lua" type="server" />
 			
-	<!--- Clicksystem --->
+	<!--- Clicksystem -->
 	<script src="clicksys\click_server.lua" />
 	<script src="clicksys\geld_server.lua" />
 	<script src="clicksys\rathaus_server.lua" />
@@ -839,7 +839,7 @@
 	<script src="clicksys\playerclick\wdealer_click.lua" type="client" />
 
 
-	<!--- Client --->
+	<!--- Client -->
 	<script src="client\antifastshot_client.lua" type="client" />
 	<script src="client\commands_client.lua" type="client" />
 	<script src="client\customradio_client.lua" type="client" />
@@ -857,21 +857,21 @@
 	<script src="client\sprunk_client.lua" type="client" />
 	<script src="client\statement_client.lua" type="client" />
 			
-	<!--- Clothes --->
+	<!--- Clothes -->
 	<script src="clothes\clothes_server.lua" />
 	<script src="clothes\clothes_settings_both.lua" type="client" />
 	<script src="clothes\clothes_settings_both.lua" type="server" />
 	<script src="clothes\clothes_client.lua" type="client" />
 	
-	<!--- CMDs --->
+	<!--- CMDs -->
 	<script src="cmds\accept_server.lua" type="server" />
 	<script src="cmds\create_server.lua" type="server" />
 	<script src="cmds\take_server.lua" type="server" />
 	
-	<!--- Buchstabe "D" --->
+	<!--- Buchstabe "D" -->
 
 	
-	<!--- Buchstabe "E" --->
+	<!--- Buchstabe "E" -->
 	<script src="environment\afk.lua" />
 	<script src="environment\animations_client.lua" type="client" />
 	<script src="environment\animations_server.lua" />
@@ -889,14 +889,13 @@
 	<script src="environment\weather.lua" />
 	<script src="environment\worldobjects.lua" />
 	
-	<!--- <script src="events\easter_client.lua" type="client" /> --->
 	<script src="events\easter_server.lua" type="server" />
 	<script src="events\halloween_intro_client.lua" type="client" />
 	<script src="events\halloween_intro_server.lua" type="server" />
 	<script src="events\zombie_plugin_server.lua" type="server" />
 	<export function="addPlayerPumpkins" type="server"/>
 	
-	<!--- Buchstabe "F" --->
+	<!--- Buchstabe "F" -->
 	<script src="fraktionen\fraktioncarsystem_server.lua" />
 	<script src="fraktionen\fraktioncarsystem_client.lua" type="client" cache="false"/>
 	<script src="fraktionen\fmenu_server.lua" />
@@ -916,7 +915,6 @@
 	<script src="fraktionen\sfpd\need.lua" />
 	
 	<map src="fraktionen\grove\Grove-SF.map" />
-	<!--<map src="fraktionen\grove\Grove-street.map" />-->
 	<script src="fraktionen\grove\grove_cars.lua" />
 	<script src="fraktionen\grove\grove_cars_sf.lua" />
 	<script src="fraktionen\grove\grove_gate.lua" />
@@ -1067,7 +1065,7 @@
 
 	<script src="fun\ueberfall\server.lua" />
 	
-	<!--- Buchstabe "G" --->
+	<!--- Buchstabe "G" -->
 	<script src="gangs\gangs_client.lua" type="client"/>
 	<script src="gangs\gangs_gui_client.lua" type="client"/>
 	<script src="gangs\gangs_gui_server.lua" type="server"/>
@@ -1100,7 +1098,7 @@
 	<script src="guns\reload\reload_server.lua" />
 	<script src="guns\reload\reload_client.lua" type="client" />
 	
-	<!--- Buchstabe "H" --->	
+	<!--- Buchstabe "H" -->	
 	<script src="helpmenue\helpmenue_client.lua" type="client"/>
 	
 	<script src="hobby\allround.lua" />
@@ -1124,9 +1122,8 @@
 	<script src="housesys\houses_client.lua" type="client" />
 	<script src="housesys\houses_mysql.lua" />
 	
-	<!--- <script src="gangs\gangs_server.lua" type="server"/> --->
 	
-	<!--- Buchstabe "I" --->
+	<!--- Buchstabe "I" -->
 	<script src="internet\desktop_client.lua" type="client"/>
 	<script src="internet\email_client.lua" type="client"/>
 	<script src="internet\email_server.lua" />
@@ -1151,11 +1148,7 @@
 	<script src="internet\homepages_client\sprunk.lua" type="client"/>
 	<script src="internet\homepages_client\triaden.lua" type="client"/>
 	<script src="internet\homepages_client\wang.lua" type="client"/>
-	<!--- <script src="internet\homepages_client\wetter.lua" type="client"/> --->
-	
-	<!--- <script src="internet\homepages_client\buyit.com\buyit_buy.lua" type="client"/>
-	<script src="internet\homepages_client\buyit.com\buyit_main.lua" type="client"/>
-	<script src="internet\homepages_client\buyit.com\buyit_sell.lua" type="client"/> --->
+
 	
 	<script src="internet\homepages_server\ammunation_server.lua" />
 	<script src="internet\homepages_server\buyit_functions.lua" />
@@ -1169,7 +1162,7 @@
 	<script src="items\items_place_server.lua" />
 	<script src="items\items_server.lua" />
 	
-	<!--- Buchstabe "J" --->
+	<!--- Buchstabe "J" -->
 	<script src="jobs\allround.lua"/>
 	<script src="jobs\handy_server.lua"/>
 	<script src="jobs\payday.lua"/>
@@ -1218,7 +1211,7 @@
 	<script src="jobs\zugjob\server.lua" type="server" />
 	
 	
-	<!---Buchstabe "M" --->
+	<!---Buchstabe "M" -->
 	<script src="minigames/tetris/classes_client.lua" type="client" />
 	<script src="minigames/tetris/tetris_server.lua" type="server" />
 	<script src="minigames/tetris/tetris_client.lua" type="client" />
@@ -1243,14 +1236,10 @@
 	<script src="missions\area51\area51ai\area51_ai_genfuncs_client.lua" type="client"/>
 	<script src="missions\area51\thetruth_area51_mission.lua" type="client" />
 	
-	<!--- <script src="missions\zombie\zombie_client.lua" type="client" />
-	<script src="missions\zombie\zombie_ki.lua" />
-	<script src="missions\zombie\zombie_settings.lua" />
-	<script src="missions\zombie\zombie_start.lua" /> --->
 	
 	<script src="mysql\mysql_pm.lua"/>
 	
-	<!--- Buchstabe "P" --->
+	<!--- Buchstabe "P" -->
 	<script src="peds\ped_animations.lua" type="server" />
 	
 	<script src="places\icons.lua" type="server" />
@@ -1269,7 +1258,7 @@
 	<script src="prison\cell_e_server.lua" type="server" />
 	<script src="prison\arrest_server.lua" type="server" />
 	
-	<!--- Buchstabe "R" --->
+	<!--- Buchstabe "R" -->
 	<script src="race\settings_both.lua" type="client" />
 	<script src="race\settings_both.lua" type="server" />
 	<script src="race\race_client.lua" type="client" />
@@ -1285,7 +1274,7 @@
 	<script src="register_login\serial_validator.lua" />
 	<script src="register_login\tutorial_client.lua" type="client" cache="false"/>
 		
-	<!--- Buchstabe "S" --->
+	<!--- Buchstabe "S" -->
 	<script src="shops\24-7\24-7_server.lua" />
 	<script src="shops\24-7\24-7_client.lua" type="client" />
 	
@@ -1315,7 +1304,7 @@
 	<script src="sounds\sounds_client.lua" type="client" />
 	
 	
-	<!--- Buchstabe "T" --->	
+	<!--- Buchstabe "T" -->	
 
 	<script src="ticketsystem\Ticketclient.lua" type="client" />
 	<script src="ticketsystem\Ticketserver.lua" />
@@ -1329,12 +1318,12 @@
 	<script src="tutorial\tutorial_server.lua" type="server"/>
 	<map src="tutorial\tutorial_map_client.map" type="client"/>
 	
-	<!--- Buchstabe "V" --->
+	<!--- Buchstabe "V" -->
 	<script src="vio_gui\ring_menue_client.lua" type="client" />
 	<script src="vio_gui\vio_gui_server.lua" type="server" />
 	<file src="vio_gui\cursor.png" />
 	
-	<!--- Bottomsettings --->
+	<!--- Bottomsettings -->
 	<script src="clicksys\clicksys_client.lua" type="client" />
 	<script src="clicksys\clicksys_server.lua" />
 	
@@ -1343,7 +1332,7 @@
 	<export function="vioSetElementData" type="server"/>
 
 	
-	<!-- Shader !ACHTUNG! immer zum Schluss --->
+	<!-- Shader !ACHTUNG! immer zum Schluss -->
 	<script src="shader_panel/c_sPanel.lua" type="client" />
 	<script src="shader_panel/c_sPanel_gui.lua" type="client" />
 	<script src="shader_panel/c_rtpool.lua" type="client" />
@@ -1390,7 +1379,6 @@
 	<export function="getElementClicked" type="client"/>
 	<export function="setElementClicked" type="client"/>
 	<export function="infobox_start_func" type="client"/>
-	<export function="registerForumWBB" type="server"/>
 	
 	<script src="neues/booster.lua" type="server" />
 	<script src="neues/dailylogin.lua" type="server" />
@@ -1402,14 +1390,7 @@
 	<script src="neues/lists/helpmenue_c.lua" type="client" cache="false" />
 	<script src="neues/lists/helpmenue_s.lua" type="server" />
 	
-	 <!-- WBB Connecter
-	<script src="wbb_connecter/cConnecter.lua" type="client" cache="false" />
-	<script src="wbb_connecter/sConnecter.lua" type="server"  />
-	<script src="wbb_connecter/wbbAdvance.lua" type="server"  />
-	<script src="wbb_connecter/serialize.lua" type="server"  />-->
-	
-	 <!-- XML System
-	 <script src="xmlSystem\cXML.lua" type="client"  />-->
+
 	 
 	  <!-- Achievment System-->
 	 <script src="neues\achievementSystem\sAchievement.lua" type="server"  />
@@ -1441,9 +1422,6 @@
 		  
 		  
 		 
-	 <!-- Downloader-->
-		 <script src="neues\downloader\sDownloader.lua" type="server"  />
-		 <script src="neues\downloader\cDownloader.lua" type="client"  />
 		 
 	 <!-- Hud-->
 		<file src="fonts/arial.ttf" download="false" />
