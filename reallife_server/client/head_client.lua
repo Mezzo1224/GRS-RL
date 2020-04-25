@@ -2,10 +2,10 @@
 
 	if getCameraTarget () then
 		x, y, z = getWorldFromScreenPosition ( screenwidth / 2, screenheight / 2, 50 )
-		setPedLookAt ( lp, x, y, z, -1, nil )
+		setPedLookAt ( lp, x, y, z )
 	end
 end
-setTimer ( adjustPlayerHead, 100, -1 )
+setTimer ( adjustPlayerHead, 100, 0 )
 
 -- DEBUG --
 curSpyGlass = false

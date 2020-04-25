@@ -60,4 +60,4 @@ function moreHunger()
 		end
 	end
 end
-setTimer ( moreHunger, 50000, -1 )
+setTimer ( moreHunger, 50000, 0 )
