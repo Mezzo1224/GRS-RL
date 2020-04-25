@@ -3,7 +3,6 @@ foodBarY = math.floor ( screenheight / 6.6666 ) - 1
 foodBarWidth = screenwidth / 10.37
 foodBarHeight = screenheight / 51.42
 foodBarY = foodBarY - ( ( 32 / 1080 ) * screenheight ) / 2 - foodBarHeight / 2
-
 local showingFoodBar = false
 
 function showHungerBar()

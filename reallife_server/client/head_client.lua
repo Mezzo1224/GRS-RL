@@ -7,6 +7,7 @@
 end
 setTimer ( adjustPlayerHead, 100, 0 )
 
+
 -- DEBUG --
 curSpyGlass = false
 spyGoglesActive = false

@@ -5,7 +5,6 @@ player = lp
 function start_anticheat ()
 
 	aCheatRun = 0
-	
 	setTimer ( anticheat, 10000, 0 )
 end
 addEventHandler ( "onClientResourceStart", resourceRoot, start_anticheat )
