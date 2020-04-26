@@ -205,7 +205,7 @@ function DownloadFinish()
 	recoverStyleMapper()
 	outputDebugString("[GRS-Updater]Update fertiggestellt(Updated "..#preUpdate.." Files)")
 	outputDebugString("[GRS-Updater] Starte GRS neu")
-	outputChatBox("[GRS-Updater]Update Complete (Updated "..#preUpdate.." Files)",root,0,255,0)
+	outputChatBox("[GRS-Updater] Update fertiggestellt (Updated "..#preUpdate.." Files)",root,0,255,0)
 	preUpdate = {}
 	preUpdateCount = 0
 	UpdateCount = 0
