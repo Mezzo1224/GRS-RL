@@ -19,7 +19,8 @@ function showVersionInfo ()
 end
 
 
-function SubmitEinloggenBtn(tate)
+function SubmitEinloggenBtn(button)
+    if button == "left" and source == regButton  then
 		source = getPlayerName(lp)
 		local passwort = DGS:dgsGetText( pw )
 		triggerServerEvent ( "einloggen", lp, lp, hash ( "sha512", passwort ))
@@ -35,7 +36,7 @@ function SubmitEinloggenBtn(tate)
 			xmlSaveFile ( file )
 		end
     end
-
+end
 
 function _CreateLoginWindow()
 
@@ -53,7 +54,6 @@ function _CreateLoginWindow()
     pw = DGS:dgsCreateEdit( 0.04, 0.25, 0.91, 0.14, "", true, login )
     DGS:dgsCreateLabel(0.05, 0.44, 0.65, 0.12, "Passwort speichern ?",true,login)
 	
-    --   DGS:dgsRadioButtonSetSelected(pwSafeNo, true)
     DGS:dgsSetProperty(pw,"masked",true)
     DGS:dgsSetParent(pw, login)
     loginButton = DGS:dgsCreateButton(0.23, 0.66, 0.54, 0.17, "Einloggen", true, login, nil, nil, nil, nil, nil, nil, tocolor(1,223,1), tocolor(4,170,4), tocolor(4,170,4) )
@@ -119,8 +119,7 @@ addEventHandler ( "ShowLoginWindow", getRootElement(), GUI_ShowLoginWindow)
 
 
 function GUI_DisableLoginWindow()
- --   addEventHandler ( "onClientRender", root, InfoUnten )
---    addEventHandler ( "onClientRender", root, infoUntenRechts )
+
     stopSound(joinmusik)
     DGS:dgsCloseWindow(login)
     showCursor(false)
@@ -130,8 +129,6 @@ function GUI_DisableLoginWindow()
         killTimer ( LVCamFlightTimer )
     end
     setElementClicked ( false )
-	setTempToken ()
-	findSettings ()
 	
 end
 addEvent ( "DisableLoginWindow", true )
@@ -151,12 +148,3 @@ function ShowInfoWindow ()
     infobox_start_func("Herzlich Willkommen\nbei "..sk.." Reallife\nLogge dich nun unten ein!", 7500 )
 end
 
-
-function setTempToken ()
-
-	resetToken = setTimer ( setTempToken, 60000*60, 0 )
-	local token = generateString ( 6 )
-	triggerServerEvent ( "setTempToken", getLocalPlayer(), token )
-	playerTempToken = token
-	outputChatBox("Ein neuer Token wurde soeben gesetzt. "..token)
-end

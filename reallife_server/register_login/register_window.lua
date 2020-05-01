@@ -4,7 +4,7 @@
 
 function SubmitRegisterBtn(button)
 	
-	if button == "left" then
+	if button == "left" and source == regButton  then
 		local pname = getPlayerName ( lp )
 		local passwort = DGS:dgsGetText( pw )
 		local pwlaenge = #passwort
