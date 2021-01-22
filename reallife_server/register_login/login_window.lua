@@ -20,7 +20,7 @@ end
 
 
 function SubmitEinloggenBtn(button)
-    if button == "left" and source == regButton  then
+    if button == "left" and source == loginButton  then
 		source = getPlayerName(lp)
 		local passwort = DGS:dgsGetText( pw )
 		triggerServerEvent ( "einloggen", lp, lp, hash ( "sha512", passwort ))

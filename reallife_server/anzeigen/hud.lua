@@ -89,7 +89,7 @@ function drawMainHUD ()
         dxDrawLine(1598*sx, 279*sy, 1910*sx, 279*sy, tocolor(255, 255, 255, 254), 1, false)
         dxDrawLine(1910*sx, 279*sy, 1910*sx, 161*sy, tocolor(255, 255, 255, 254), 1, false)
 		-- Unterer Teil
-        dxDrawRectangle(1599, 162, 311, 117, tocolor(3, 0, 0, 142), false)
+        dxDrawRectangle(1599*sx, 162*sy, 311*sx, 117*sy, tocolor(3, 0, 0, 142), false)
 		-- Hintergründe vom Unterem Teil
 		dxDrawImage(1630*sx, 168*sy, 271*sx, 17*sy, ":reallife_server/images/hud/healthBG.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
 		
@@ -110,8 +110,8 @@ function drawMainHUD ()
 		end
         dxDrawImage(1604*sx, 252*sy, 18*sx, 18*sy, ":reallife_server/images/hud/xp.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
         dxDrawImage(1630*sx, 197*sy, 270*sx/100*pArmor, 17*sy, ":reallife_server/images/hud/armourbar.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
-		local totalData = 271*sx/100*lvlDatas
-		dxDrawImage(1628*sx, 253*sy, totalData, 17*sy, ":reallife_server/images/hud/xpbar.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
+		local totalData = 271/100*lvlDatas
+		dxDrawImage(1628*sx, 253*sy, totalData*sx, 17*sy, ":reallife_server/images/hud/xpbar.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
 
        
         dxDrawText(pHealth.."%", 1739*sx, 168*sy, 1773*sx, 183*sy, tocolor(255, 255, 255, 255), 1.00, "default-bold", "left", "top", false, false, true, false, false)
@@ -129,6 +129,7 @@ function drawMainHUD ()
 function drawWantedHUD ()
 	local playerWanted = getElementData ( localPlayer, "wanteds" )
 	if playerWanted >= 1 then
+		
 		 dxDrawImage(1549*sx, 6*sy, 38*sx, 38*sy, ":reallife_server/images/hud/wanted_activ.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
 	else
 		 dxDrawImage(1549*sx, 6*sy, 38*sx, 38*sy, ":reallife_server/images/hud/wanted_deactiv.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)

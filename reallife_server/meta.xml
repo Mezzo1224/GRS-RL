@@ -1418,25 +1418,25 @@
 		 <file src="neues\achievementSystem\achievmentPictures\10gw.png"  />
 		 
 		
-		  	<file src="fonts/DSDIGI.ttf" download="false" />
+		  	<file src="fonts/DSDIGI.ttf"   />
 		  
 		  
 		 
 		 
 	 <!-- Hud-->
-		<file src="fonts/arial.ttf" download="false" />
-		<file src="images/hud/weptest.png" download="false" />
-		<file src="images/hud/air.png" download="false" />
-		<file src="images/hud/armour.png" download="false" />
-		<file src="images/hud/health.png" download="false" />
-		<file src="images/hud/time.png" download="false" />
-		<file src="images/hud/hunger.png" download="false" />
-		<file src="images/hud/money.png" download="false" />
-		<file src="images/hud/wanted_activ.png" download="false" />
-		<file src="images/hud/wanted_deactiv.png" download="false" />
-		<file src="images/hud/xp.png" download="false" />
-		<file src="images/hud/gps1.png" download="false" />
-		<file src="images/hud//coins.png" download="false" />
+		<file src="fonts/arial.ttf"   />
+		<file src="images/hud/weptest.png"   />
+		<file src="images/hud/air.png"   />
+		<file src="images/hud/armour.png"   />
+		<file src="images/hud/health.png"   />
+		<file src="images/hud/time.png"   />
+		<file src="images/hud/hunger.png"   />
+		<file src="images/hud/money.png"   />
+		<file src="images/hud/wanted_activ.png"   />
+		<file src="images/hud/wanted_deactiv.png"   />
+		<file src="images/hud/xp.png"   />
+		<file src="images/hud/gps1.png"   />
+		<file src="images/hud//coins.png"   />
 		<file src="images/hud/lungenbar.png" />
 		<file src="images/hud/healthbar.png" />
 		<file src="images/hud/hungerbar.png" />

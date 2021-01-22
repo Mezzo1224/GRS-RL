@@ -70,8 +70,7 @@ function stringToSocID ( id )
 end
 
 function getPlayerSocialAvailableStates ()
-
-	local spielzeit = getElementData ( lp, "playingtime" )
+	local spielzeit = tonumber(getElementData ( lp, "playingtime" ))
 	local totalMoney = mymoney + vioClientGetElementData ( "bankmoney" )
 	availableSocialStates = nil
 	availableSocialStates = {}
@@ -110,10 +109,10 @@ function getPlayerSocialAvailableStates ()
 		end
 	-- **Gruppe 2 - Fraktionsbasiert** --
 		if getElementData ( lp, "fraktion" ) >= 1 then
-			if vioClientGetElementData ( "rang" ) >= 4 and spielzeit >= 15000 then
+			if getElementData (  lp,"rang" ) >= 4 and spielzeit >= 15000 then
 				-- Faedenzieher --
 				availableSocialStates[14] = true
-			elseif vioClientGetElementData ( "rang" ) >= 2 and spielzeit >= 4500 then
+			elseif getElementData (  lp,"rang" ) >= 2 and spielzeit >= 4500 then
 				-- Aufsteiger --
 				availableSocialStates[7] = true
 				reachableSocialStates[14] = true
