@@ -103,10 +103,10 @@ CREATE TABLE `achievments` (
 -- --------------------------------------------------------
 
 --
--- Tabellenstruktur für Tabelle `advertisedplayers`
+-- Tabellenstruktur für Tabelle `advertisedPlayers`
 --
 
-CREATE TABLE `advertisedplayers` (
+CREATE TABLE `advertisedPlayers` (
   `werberUID` int(11) NOT NULL,
   `geworbenerUID` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
