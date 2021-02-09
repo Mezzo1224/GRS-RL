@@ -102,8 +102,8 @@ function loadFactionCars ()
                 local SXR = tonumber(rows.RX)
                 local SYR = tonumber(rows.RY)
                 local SZR = tonumber(rows.RZ)
-                fraktionsVehs = fraktionsVehs+1
-                createFactionVehicleDB (fraktionsVehs,model,SX,SY,SZ,SXR,SYR,SZR,FactionID,Rang,Level)
+                fraktionsVehs = fraktionsVehs + 1
+                createFactionVehicleDB (id,model,SX,SY,SZ,SXR,SYR,SZR,FactionID,Rang,Level)
 
             end
             outputDebugString(fraktionsVehs.." Fraktionsfahrzeuge geladen.")
